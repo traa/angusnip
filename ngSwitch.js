@@ -19,7 +19,7 @@
   
    controller: function () {
   
-   this.cases = {};
+      this.cases = {};
   
    },
   
@@ -27,36 +27,36 @@
   
      var watchExpr = attr.ngSwitch, // Read in the data property we want to monitor
     
-     selectedLinker,   selectedElement, selectedScope;
+        selectedLinker,   selectedElement, selectedScope;
     
-   scope.$watch(watchExpr, function (value) {
-  
-   if (selectedElement) { // remove any prior HTML within $element
-  
-   selectedScope.$destroy();
-  
-   selectedElement.remove();
-  
-   selectedElement = selectedScope = null;
-  
-   }
-  
-   if ((selectedLinker = ctrl.cases['!' + value] || ctrl.
-  
-  cases['?'])) {
-  
-   selectedScope = scope.$new();
-  
-   selectedLinker(selectedScope, function(caseElement) {
-  
-   selectedElement = caseElement;
-  
-   element.append(caseElement);
-  
-   });
-  
-   }
-  
-   });
+    scope.$watch(watchExpr, function (value) {
+    
+       if (selectedElement) { // remove any prior HTML within $element
+      
+         selectedScope.$destroy();
+        
+         selectedElement.remove();
+        
+         selectedElement = selectedScope = null;
+      
+       }
+      
+       if ((selectedLinker = ctrl.cases['!' + value] || ctrl.cases['?'])) {
+      
+          selectedScope = scope.$new();
+      
+          selectedLinker(selectedScope, function(caseElement) {
+      
+            selectedElement = caseElement;
+      
+            element.append(caseElement);
+      
+          });
+      
+       }
+    
+     });
   
    }
+   
+  }
