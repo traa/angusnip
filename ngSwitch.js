@@ -67,11 +67,21 @@
   
    priority: 500,
   
+  //when we request a controller with require,
+  //we're fetching the same instance that's in use on the ng-switch directive itself, and 
+  //thus is shared with ng-switch and all of the other ng-switch-[when/default]
+  //directives as well.
    require: '^ngSwitch',
   
    compile: function(element, attrs, linker) {
   
      return function(scope, element, attr, ctrl) { //postlink
+    
+    
+      //Unlike ng-repeat, we're not going to use the linker function immediately, but
+      //instead we use the subordinate directives (when/default) to collect all of the possible 
+      //linker functions, and thus their respective DOM elements, and then store them 
+      //on the primary ng-switch controller for use there.
     
         // For ng-switch-default, the linker function is simply attached to the '?' key within ctrl.cases
         ctrl.cases['!' + attrs.ngSwitchWhen] = linker;
