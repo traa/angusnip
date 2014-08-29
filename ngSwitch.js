@@ -34,9 +34,7 @@
        if (selectedElement) { // remove any prior HTML within $element
       
          selectedScope.$destroy();
-        
          selectedElement.remove();
-        
          selectedElement = selectedScope = null;
       
        }
@@ -44,11 +42,9 @@
        if ((selectedLinker = ctrl.cases['!' + value] || ctrl.cases['?'])) {
       
           selectedScope = scope.$new();
-      
           selectedLinker(selectedScope, function(caseElement) {
       
             selectedElement = caseElement;
-      
             element.append(caseElement);
       
           });
@@ -60,3 +56,29 @@
    }
    
   }
+
+
+//ng-switch-when
+
+{
+  //we're once again setting the transclude property to element 
+  //in order to request an instance of the linking function.
+   transclude: 'element',
+  
+   priority: 500,
+  
+   require: '^ngSwitch',
+  
+   compile: function(element, attrs, linker) {
+  
+     return function(scope, element, attr, ctrl) { //postlink
+    
+        // For ng-switch-default, the linker function is simply attached to the '?' key within ctrl.cases
+        ctrl.cases['!' + attrs.ngSwitchWhen] = linker;
+    
+     };
+  
+   }
+
+}
+
