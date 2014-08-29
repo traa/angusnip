@@ -53,6 +53,11 @@
                     
                          linker($internalScope, function (clone) {
                
+                              //Within the linker function, the scope gets bound to the compiled, but not yet 
+                              //interpolated, element HTML, and a new "fully transformed" element is generated. 
+                              //That element gets passed to our secondary function as the clone parameter,
+               
+               
                                $element.append(clone); // Take the interpolated HTML and append it to our main $element
                
                          }); // end of linker clone function
