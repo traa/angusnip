@@ -6,11 +6,13 @@ angular.module('myApp', [])
  
     $scope.retweet = function () {
    
-      api.retweet($scope.tweet);// Each scope inherits from it's 
+      /**
+       * Each scope inherits from it's 
+       * parent, so we still have access to the full tweet object of { author : '...', text : '...' }
+       **/
+      api.retweet($scope.tweet);
    
-      parent, so we still have access to the full tweet object of {
-   
-      author : '...', text : '...' }
+      
    
     };
   
